@@ -44,7 +44,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3)
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
-    // Defect(s) Found: 
+    // Defect(s) Found: The code is inserting people to the front of the list because it uses Insert(0).
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -86,7 +86,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found: Insert(0) makes the queue behave like a stack, so the order of turns is reversed.
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -117,7 +117,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found: The turns are incorrect because of Insert(0) which makes the queue behave like a stack, so the order of turns is reversed. And then, the logic for re-enqueuing people is incorrect because it only re-enqueues people with more than 1 turn, so people with 1 turn are not re-enqueued and thus do not get their last turn.
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
@@ -144,7 +144,7 @@ public class TakingTurnsQueueTests
     [TestMethod]
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
-    // Defect(s) Found: 
+    // Defect(s) Found: The code correctly throws an exception when trying to get the next person from an empty queue, but the error message is not correct.
     public void TestTakingTurnsQueue_Empty()
     {
         var players = new TakingTurnsQueue();

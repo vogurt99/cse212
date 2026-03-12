@@ -8,7 +8,7 @@ public class PriorityQueueTests
     [TestMethod]
     // Scenario: Highest priority item (C:10) is at the end of the queue.
     // Expected Result: C should be returned.
-    // Defect(s) Found:
+    // Defect(s) Found: The search loop for the highest priority item is not correctly iterating through the entire queue. It only iterates until the second to last item, so it misses the last item which has the highest priority.
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
@@ -23,7 +23,7 @@ public class PriorityQueueTests
     [TestMethod]
     // Scenario: Add two items with the same priority and a third item with a lower priority at the end (A:3, B:3, C:1).
     // Expected Result: A should come out first (FIFO).
-    // Defect(s) Found: 
+    // Defect(s) Found: The logic uses >= instead of >, so it treats items with the same priority as having the same priority and thus returns the last one it finds with that priority instead of the first one.
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
