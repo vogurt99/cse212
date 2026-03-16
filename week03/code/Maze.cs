@@ -32,34 +32,54 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        // Index 0 is Left.
+        if (_mazeMap[(_currX, _currY)][0])
+        {
+            _currX -= 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move right.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        // Index 1 is Right.
+        if (_mazeMap[(_currX, _currY)][1])
+        {
+            _currX += 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move up.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        // Index 2 is Up.
+        if (_mazeMap[(_currX, _currY)][2])
+        {
+            _currY -= 1; // In many grid systems, Up decreases Y
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
-    /// <summary>
-    /// Check to see if you can move down.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
-    /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        // Index 3 is Down.
+        if (_mazeMap[(_currX, _currY)][3])
+        {
+            _currY += 1; // In many grid systems, Down increases Y
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()
