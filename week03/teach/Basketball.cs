@@ -19,18 +19,42 @@ public class Basketball
     {
         var players = new Dictionary<string, int>();
 
-        using var reader = new TextFieldParser("basketball.csv");
+        string path = "/home/samuel/School/Code/CSE 212/cse212/week03/teach/basketball.csv";
+        using var reader = new TextFieldParser(path);
+
         reader.TextFieldType = FieldType.Delimited;
         reader.SetDelimiters(",");
-        reader.ReadFields(); // ignore header row
+        reader.ReadFields();
+        
         while (!reader.EndOfData) {
-            var fields = reader.ReadFields()!;
+            var fields = reader.ReadFields();
+            if (fields == null) continue;
+
             var playerId = fields[0];
             var points = int.Parse(fields[8]);
+
+            // Adds points to the player's total in the dictionary.
+            if (players.ContainsKey(playerId))
+            {
+                players[playerId] += points;
+            }
+            else
+            {
+                players[playerId] = points;
+            }
         }
 
-        Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
+        // Convert the dictionary to an array of KeyValuePairs for sorting.
+        var playerArray = players.ToArray();
 
-        var topPlayers = new string[10];
+        // Sort the array in descending order based on points.
+        Array.Sort(playerArray, (p1, p2) => p2.Value.CompareTo(p1.Value));
+
+        // Top 10 players with the most points.
+        Console.WriteLine("Top 10 Career Points:");
+        for (int i = 0; i < 10 && i < playerArray.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {playerArray[i].Key}: {playerArray[i].Value}");
+        }
     }
 }
